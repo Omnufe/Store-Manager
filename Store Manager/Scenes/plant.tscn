@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://qjxoq358kycj"]
+
+[ext_resource type="Script" path="res://Scripts/Plant.gd" id="1_pjonj"]
+[ext_resource type="Material" uid="uid://c27abn8yhcq3d" path="res://Art/black.tres" id="2_cr5v3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wnu61"]
+size = Vector3(10, 0.1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i45gf"]
+size = Vector3(10, 0.1, 10)
+
+[node name="Plant" type="StaticBody3D" groups=["Persist"]]
+script = ExtResource("1_pjonj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_cr5v3")
+mesh = SubResource("BoxMesh_wnu61")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_i45gf")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.5)
+billboard = 1
+text = "0"
+font_size = 60
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 5)

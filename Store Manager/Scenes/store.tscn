@@ -1,0 +1,283 @@
+[gd_scene load_steps=11 format=3 uid="uid://d0cyx34oq3x6u"]
+
+[ext_resource type="Script" path="res://Scripts/Store.gd" id="1_10mu8"]
+[ext_resource type="PackedScene" uid="uid://qjxoq358kycj" path="res://Scenes/plant.tscn" id="2_7ux82"]
+[ext_resource type="Script" path="res://Scripts/CameraRoot.gd" id="3_nuocb"]
+[ext_resource type="Script" path="res://Scripts/Manager/InterfaceManager.gd" id="4_wec5q"]
+[ext_resource type="Script" path="res://Scripts/MouseArea2D.gd" id="5_vq2jp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dt24p"]
+sky_top_color = Color(0.196078, 0.196078, 0.196078, 1)
+sky_horizon_color = Color(0.598039, 0.598039, 0.598039, 1)
+ground_bottom_color = Color(0.196078, 0.196078, 0.196078, 1)
+ground_horizon_color = Color(0.598039, 0.598039, 0.598039, 1)
+
+[sub_resource type="Sky" id="Sky_rmkgf"]
+sky_material = SubResource("ProceduralSkyMaterial_dt24p")
+
+[sub_resource type="Environment" id="Environment_2vedl"]
+background_mode = 1
+background_color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+sky = SubResource("Sky_rmkgf")
+ambient_light_color = Color(0.482353, 0.482353, 0.482353, 1)
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qywl0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8oble"]
+size = Vector2(1192, 167)
+
+[node name="Store" type="Node3D" groups=["Store"]]
+script = ExtResource("1_10mu8")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2vedl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Plant" parent="." instance=ExtResource("2_7ux82")]
+
+[node name="CameraRoot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 5)
+script = ExtResource("3_nuocb")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRoot"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_wec5q")
+
+[node name="MouseArea2D" type="Area2D" parent="Control"]
+position = Vector2(0, -46)
+script = ExtResource("5_vq2jp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/MouseArea2D"]
+position = Vector2(572, 297)
+shape = SubResource("CircleShape2D_qywl0")
+
+[node name="Area2D" type="Area2D" parent="Control"]
+position = Vector2(0, -46)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Area2D"]
+position = Vector2(580, 621.5)
+shape = SubResource("RectangleShape2D_8oble")
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -145.0
+offset_right = -527.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Products" type="Label" parent="Control/Panel"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 10.0
+offset_right = 87.0
+offset_bottom = 36.0
+text = "Productos"
+
+[node name="Buttons" type="VBoxContainer" parent="Control/Panel"]
+layout_mode = 2
+offset_left = 34.0
+offset_top = 35.0
+offset_right = 95.0
+offset_bottom = 136.0
+
+[node name="Add" type="Button" parent="Control/Panel/Buttons"]
+layout_mode = 2
+text = "Añadir"
+
+[node name="Search" type="Button" parent="Control/Panel/Buttons"]
+layout_mode = 2
+text = "Buscar"
+
+[node name="Edit" type="Button" parent="Control/Panel/Buttons"]
+layout_mode = 2
+text = "Editar"
+
+[node name="Name" type="Label" parent="Control/Panel"]
+layout_mode = 2
+offset_left = 125.0
+offset_top = 11.0
+offset_right = 189.0
+offset_bottom = 37.0
+text = "Nombre"
+
+[node name="TextEdit" type="TextEdit" parent="Control/Panel/Name"]
+layout_mode = 2
+offset_left = 107.0
+offset_top = -4.0
+offset_right = 214.0
+offset_bottom = 28.0
+size_flags_horizontal = 0
+placeholder_text = "Nombre"
+
+[node name="Description" type="Label" parent="Control/Panel"]
+layout_mode = 2
+offset_left = 128.0
+offset_top = 50.0
+offset_right = 219.0
+offset_bottom = 76.0
+text = "Descripción"
+
+[node name="TextEdit" type="TextEdit" parent="Control/Panel/Description"]
+layout_mode = 2
+offset_left = 107.0
+offset_top = -4.0
+offset_right = 218.0
+offset_bottom = 30.0
+size_flags_horizontal = 0
+placeholder_text = "Descripción"
+
+[node name="Id" type="Label" parent="Control/Panel"]
+layout_mode = 2
+offset_left = 128.0
+offset_top = 98.0
+offset_right = 219.0
+offset_bottom = 124.0
+text = "Descripción"
+
+[node name="TextEdit" type="TextEdit" parent="Control/Panel/Id"]
+layout_mode = 2
+offset_left = 107.0
+offset_top = -4.0
+offset_right = 207.0
+offset_bottom = 30.0
+size_flags_horizontal = 0
+placeholder_text = "id"
+
+[node name="Panel2" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 696.0
+offset_top = -149.0
+offset_right = -13.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Plants" type="Label" parent="Control/Panel2"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 10.0
+offset_right = 87.0
+offset_bottom = 36.0
+text = "Plantas
+"
+
+[node name="Buttons" type="VBoxContainer" parent="Control/Panel2"]
+layout_mode = 2
+offset_left = 34.0
+offset_top = 35.0
+offset_right = 95.0
+offset_bottom = 136.0
+
+[node name="AddPlant" type="Button" parent="Control/Panel2/Buttons"]
+layout_mode = 2
+text = "Añadir"
+
+[node name="SearchPlant" type="Button" parent="Control/Panel2/Buttons"]
+layout_mode = 2
+text = "Buscar"
+
+[node name="EditPlant" type="Button" parent="Control/Panel2/Buttons"]
+layout_mode = 2
+text = "Editar"
+
+[node name="Name" type="Label" parent="Control/Panel2"]
+layout_mode = 2
+offset_left = 125.0
+offset_top = 11.0
+offset_right = 189.0
+offset_bottom = 37.0
+text = "Nombre"
+
+[node name="TextEdit" type="TextEdit" parent="Control/Panel2/Name"]
+layout_mode = 2
+offset_left = 107.0
+offset_top = -4.0
+offset_right = 297.0
+offset_bottom = 28.0
+size_flags_horizontal = 0
+placeholder_text = "Nombre"
+
+[node name="Description" type="Label" parent="Control/Panel2"]
+layout_mode = 2
+offset_left = 128.0
+offset_top = 50.0
+offset_right = 219.0
+offset_bottom = 76.0
+text = "Descripción"
+
+[node name="TextEdit" type="TextEdit" parent="Control/Panel2/Description"]
+layout_mode = 2
+offset_left = 107.0
+offset_top = -4.0
+offset_right = 293.0
+offset_bottom = 30.0
+size_flags_horizontal = 0
+placeholder_text = "Descripción"
+
+[node name="Id" type="Label" parent="Control/Panel2"]
+layout_mode = 2
+offset_left = 128.0
+offset_top = 98.0
+offset_right = 219.0
+offset_bottom = 124.0
+text = "Descripción"
+
+[node name="TextEdit" type="TextEdit" parent="Control/Panel2/Id"]
+layout_mode = 2
+offset_left = 107.0
+offset_top = -4.0
+offset_right = 293.0
+offset_bottom = 30.0
+size_flags_horizontal = 0
+placeholder_text = "id"
+
+[node name="InfoLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 238.0
+offset_bottom = 189.0
+
+[node name="Save" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 590.0
+offset_top = 513.0
+offset_right = 598.0
+offset_bottom = 521.0
+text = "Guardar"
+
+[node name="Load" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 590.0
+offset_top = 552.0
+offset_right = 663.0
+offset_bottom = 583.0
+text = "Cargar"
+
+[connection signal="button_down" from="Control/Panel/Buttons/Add" to="Control" method="_on_add_button_down"]
+[connection signal="button_down" from="Control/Panel/Buttons/Search" to="Control" method="_on_search_button_down"]
+[connection signal="button_down" from="Control/Panel/Buttons/Edit" to="Control" method="_on_edit_button_down"]
+[connection signal="button_down" from="Control/Panel2/Buttons/AddPlant" to="Control" method="_on_add_plant_button_down"]
+[connection signal="button_down" from="Control/Panel2/Buttons/SearchPlant" to="Control" method="_on_search_plant_button_down"]
+[connection signal="button_down" from="Control/Panel2/Buttons/EditPlant" to="Control" method="_on_edit_plant_button_down"]
+[connection signal="button_down" from="Control/Save" to="Control" method="_on_save_button_down"]
+[connection signal="button_down" from="Control/Load" to="Control" method="_on_load_button_down"]
