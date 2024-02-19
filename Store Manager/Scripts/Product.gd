@@ -78,17 +78,23 @@ func _on_area_3d_mouse_entered():
 func _on_area_3d_mouse_exited():
 	is_mouse_hover = false
 
-func save():
-	print("saving... " + product_name)
-	var save_dict = {
-		"filename" : get_scene_file_path(),
-		"parent" : get_parent().get_path(),
-		"pos_x" : position.x, # Vector2 is not supported by JSON
-		"pos_y" : position.y,
-		"pos_z" : position.z,
+
+"""
 		"product_info" : product_info.product_category,
 		"product_name" : product_info.product_name,
 		"product_id" : product_info.product_id
+"""
+func save():
+	
+	var save_dict = {
+		"filename" : get_scene_file_path(),
+		"parent" : get_parent().get_path(),
+		"obj_name": name,
+		"pos_x" : position.x, # Vector2 is not supported by JSON
+		"pos_y" : position.y,
+		"pos_z" : position.z
 	}
+	
 	var is_saved = true
+	print("saving... " + str(is_saved) + " " + product_name)
 	return save_dict

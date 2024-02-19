@@ -113,8 +113,14 @@ func _on_search_plant_button_down():
 	pass # Replace with function body.
 
 
+@onready var spin_box_x = $Panel2/Id/SpinBox_x
+@onready var spin_box_z = $Panel2/Id/SpinBox_z
 func _on_edit_plant_button_down():
-	pass # Replace with function body.
+	var x :float = spin_box_x.value
+	var z :float = spin_box_z.value
+	var my_store : Store = get_tree().get_nodes_in_group("Store")[0]
+	my_store.selected_plant.set_size(Vector3(x, 0.1, z))
+
 
 #Save load
 func _on_save_button_down():

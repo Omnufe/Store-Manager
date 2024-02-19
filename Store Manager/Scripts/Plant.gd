@@ -27,7 +27,7 @@ func set_info(id):
 	#plant_name = info["Name"]
 	plant_id = id
 
-func set_size(size):
+func set_size(size : Vector3):
 	var mesh = mesh_instance.get_mesh()
 	mesh.size = size
 	
@@ -37,19 +37,22 @@ func set_size(size):
 func _process(delta):
 	$Label3D.text = str(plant_id)
 
-
+"""
+		"plant_name" : plant_name,
+		"plant_id" : plant_id,
+		"plant_description" : plant_description["Description"],
+		"size_x": plant_description["Size"].x
+"""
 func save():
 	print("saving... " + plant_name)
 	var save_dict = {
 		"filename" : get_scene_file_path(),
 		"parent" : get_parent().get_path(),
+		"obj_name": name,
 		"pos_x" : position.x, # Vector2 is not supported by JSON
 		"pos_y" : position.y,
-		"pos_z" : position.z,
-		"plant_name" : plant_name,
-		"plant_id" : plant_id,
-		"plant_description" : plant_description["Description"],
-		"size_x": plant_description["Size"].x
+		"pos_z" : position.z
 	}
+	
 	is_saved = true
 	return save_dict

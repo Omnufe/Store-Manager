@@ -1,0 +1,5 @@
+{"filename":"res://Scenes/plant.tscn","obj_name":"Plant","parent":"/root/Store","pos_x":0,"pos_y":0,"pos_z":0}
+{"filename":"res://Scenes/product.tscn","obj_name":"Product","parent":"/root/Store/Plant","pos_x":4,"pos_y":0.0500001907348633,"pos_z":4}
+{"filename":"res://Scenes/product.tscn","obj_name":"@StaticBody3D@40","parent":"/root/Store/Plant","pos_x":7,"pos_y":0.0500001907348633,"pos_z":9}
+{"filename":"res://Scenes/plant.tscn","obj_name":"_StaticBody3D_36","parent":"/root/Store","pos_x":0,"pos_y":-5,"pos_z":0}
+{"filename":"res://Scenes/plant.tscn","obj_name":"_StaticBody3D_37","parent":"/root/Store","pos_x":0,"pos_y":-10,"pos_z":0}

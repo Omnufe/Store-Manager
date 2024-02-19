@@ -228,7 +228,7 @@ func search_product(product_name):
 #=====================Save/Load
 var save_dir = "user://saves/"
 # Ruta del archivo donde se guardará la información de la escena
-var save_file_path = "user://scene_data.save"
+var save_file_path = "user://scene_data.save"#"user://scene_data.save"
 
 func save_game():
 	var save_game = FileAccess.open(save_file_path, FileAccess.WRITE)
@@ -245,7 +245,7 @@ func save_game():
 			continue
 
 		# Call the node's save function.
-		var node_data = node.call("save")
+		var node_data = node.save()#node.call("save")
 
 		# JSON provides a static method to serialized JSON string.
 		var json_string = JSON.stringify(node_data)
@@ -263,44 +263,47 @@ func load_game():
 	# For our example, we will accomplish this by deleting saveable objects.
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
 	for i in save_nodes:
-		print("Loading " + i.name + str(i.is_saved))
-		if not i.is_saved:
-			i.queue_free()
+		print("Saved? " + i.name + str(i.is_saved))
+		#if not i.is_saved:
+		i.queue_free()
 
-	return
+	await get_tree().create_timer(0.1).timeout
 	# Load the file line by line and process that dictionary to restore the object it represents.
 	var save_game = FileAccess.open(save_file_path, FileAccess.READ)
+	
 	while save_game.get_position() < save_game.get_length():
 		var json_string = save_game.get_line()
-
+		
 		# Creates the helper class to interact with JSON
 		var json = JSON.new()
-
+		
 		# Check if there is any error while parsing the JSON string, skip in case of failure
 		var parse_result = json.parse(json_string)
 		if not parse_result == OK:
 			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 			continue
-
+		
 		# Get the data from the JSON object
 		var node_data = json.get_data()
-
+		
 		# Firstly, we need to create the object and add it to the tree and set its position.
 		print("Loading... " + node_data["filename"])
 		var new_object = load(node_data["filename"]).instantiate()
 		get_node(node_data["parent"]).add_child(new_object)
+		new_object.name = node_data["obj_name"]
 		if new_object is Plant:
 			new_object.position = Vector3(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"])
-		elif  new_object is Product:
-			new_object.set_disable(false)
+		elif new_object is Product:
+			#new_object.set_disable(false)
 			new_object.position = Vector3(node_data["pos_x"], node_data["pos_y"], node_data["pos_z"])
-			print("Loading... " + node_data["parent"] + str(position))
 		
 		# Now we set the remaining variables.
 		for i in node_data.keys():
 			if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y" or i == "pos_z":
 				continue
 			new_object.set(i, node_data[i])
+		
+		await get_tree().create_timer(0.1).timeout
 	
 	var my_store = get_tree().get_nodes_in_group("Store")[0]
 	my_store.initilize()

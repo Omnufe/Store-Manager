@@ -36,9 +36,8 @@ environment = SubResource("Environment_2vedl")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+visible = false
 shadow_enabled = true
-
-[node name="Plant" parent="." instance=ExtResource("2_7ux82")]
 
 [node name="CameraRoot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 5)
@@ -204,9 +203,9 @@ text = "Editar"
 [node name="Name" type="Label" parent="Control/Panel2"]
 layout_mode = 2
 offset_left = 125.0
-offset_top = 11.0
+offset_top = 8.0
 offset_right = 189.0
-offset_bottom = 37.0
+offset_bottom = 34.0
 text = "Nombre"
 
 [node name="TextEdit" type="TextEdit" parent="Control/Panel2/Name"]
@@ -221,9 +220,9 @@ placeholder_text = "Nombre"
 [node name="Description" type="Label" parent="Control/Panel2"]
 layout_mode = 2
 offset_left = 128.0
-offset_top = 50.0
+offset_top = 45.0
 offset_right = 219.0
-offset_bottom = 76.0
+offset_bottom = 71.0
 text = "Descripción"
 
 [node name="TextEdit" type="TextEdit" parent="Control/Panel2/Description"]
@@ -238,9 +237,9 @@ placeholder_text = "Descripción"
 [node name="Id" type="Label" parent="Control/Panel2"]
 layout_mode = 2
 offset_left = 128.0
-offset_top = 98.0
+offset_top = 81.0
 offset_right = 219.0
-offset_bottom = 124.0
+offset_bottom = 107.0
 text = "Descripción"
 
 [node name="TextEdit" type="TextEdit" parent="Control/Panel2/Id"]
@@ -252,10 +251,26 @@ offset_bottom = 30.0
 size_flags_horizontal = 0
 placeholder_text = "id"
 
+[node name="SpinBox_x" type="SpinBox" parent="Control/Panel2/Id"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 33.0
+offset_right = 192.062
+offset_bottom = 64.0
+
+[node name="SpinBox_z" type="SpinBox" parent="Control/Panel2/Id"]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 33.0
+offset_right = 295.062
+offset_bottom = 64.0
+
 [node name="InfoLabel" type="Label" parent="Control"]
 layout_mode = 0
-offset_right = 238.0
-offset_bottom = 189.0
+offset_left = 11.0
+offset_top = 8.0
+offset_right = 249.0
+offset_bottom = 197.0
 
 [node name="Save" type="Button" parent="Control"]
 layout_mode = 0
@@ -272,6 +287,8 @@ offset_top = 552.0
 offset_right = 663.0
 offset_bottom = 583.0
 text = "Cargar"
+
+[node name="Plant" parent="." instance=ExtResource("2_7ux82")]
 
 [connection signal="button_down" from="Control/Panel/Buttons/Add" to="Control" method="_on_add_button_down"]
 [connection signal="button_down" from="Control/Panel/Buttons/Search" to="Control" method="_on_search_button_down"]
